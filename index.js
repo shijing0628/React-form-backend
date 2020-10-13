@@ -1,8 +1,11 @@
-const http = require('http');
+// const http = require('http');
 const express = require('express');
 const app = express();
-const cors = require('cors')
-
+const cors = require('cors');
+const bodyParser = require('body-parser');
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 let notes = [
  {
   id: 1,
@@ -30,7 +33,9 @@ let notes = [
  }
 ]
 
-app.use(cors());
+
+
+
 
 // generate the max number of the newest Id
 const generateId = () => {
@@ -67,7 +72,9 @@ app.delete('/api/notes/:id', (req, res) => {
  res.status(204).end();
 })
 
-app.post('/api/notes', (req, res) => {
+
+// post an item
+app.post('/api/notes', cors(), (req, res) => {
  const body = req.body;
  if (!body.content) {
   return res.status(400).json({
@@ -83,7 +90,6 @@ app.post('/api/notes', (req, res) => {
  }
 
  notes = notes.concat(note)
-
  res.json(note)
 })
 
