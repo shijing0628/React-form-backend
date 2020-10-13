@@ -49,11 +49,11 @@ app.get('/', cors(), (req, res) => {
  res.send('<h1>Hi I am brenda</h1>')
 })
 
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes', cors(), (req, res) => {
  res.json(notes)
 })
 // Find one item
-app.get('/api/notes/:id', (req, res) => {
+app.get('/api/notes/:id', cors(), (req, res) => {
  // This ID need to convert to a number
  const id = Number(req.params.id);
  const note = notes.find(note => note.id === id);
@@ -66,7 +66,7 @@ app.get('/api/notes/:id', (req, res) => {
 })
 
 // Delete one item
-app.delete('/api/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', cors(), (req, res) => {
  const id = Number(req.params.id);
  notes = notes.filter(note => note.id !== id);
  res.status(204).end();
